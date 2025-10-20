@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Polygones des départements - IAV Hassan II</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 100vh; width: 100%; }
+    .popup-img { width: 200px; display: block; margin-top: 5px; border-radius:5px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([33.9755, -6.8670], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap | IAV Hassan II'
+    }).addTo(map);
+
+
+    const iaa = L.polygon([
+      [33.974706, -6.866117],
+      [33.974585, -6.865893],
+      [33.974397, -6.866073],
+      [33.974546, -6.866307]
+    ], { color: "#99CCFF", fillColor: "#CCE5FF", fillOpacity: 0.6 }).addTo(map);
+    L.marker([33.97457, -6.8661]).addTo(map)
+      .bindPopup("<b>Institut Agronomique</b><br>Formation et recherche en agriculture.<br>");
+
+    const poleDigital = L.polygon([
+      [33.976993, -6.865881],
+      [33.976792, -6.865788],
+      [33.976718, -6.866031],
+      [33.976905, -6.866125]
+    ], { color: "#66CC99", fillColor: "#CCFFCC", fillOpacity: 0.6 }).addTo(map);
+    L.marker([33.97688, -6.86597]).addTo(map)
+      .bindPopup("<b>Pôle Digital</b><br>Innovation numérique pour l'agriculture.<br>");
+
+    const topoCoords = [
+      [33.97665, -6.86645],
+      [33.97623, -6.86678],
+      [33.97630, -6.86692],
+      [33.97613, -6.86709],
+      [33.97629, -6.86738],
+      [33.97633, -6.86737],
+      [33.97667, -6.86718],
+      [33.97691, -6.86693]
+    ];
+    const topo = L.polygon(topoCoords, { color: "#FFCC66", fillColor: "#FFF2CC", fillOpacity: 0.6 }).addTo(map);
+    L.marker([33.97649, -6.86685]).addTo(map)
+      .bindPopup("<b>Département Topographie</b><br>Géomatique et cartographie.<br>");
+
+    const amphiCoords = [
+      [33.97495, -6.86685],
+      [33.97488, -6.86707],
+      [33.97472, -6.86721],
+      [33.97456, -6.86694],
+      [33.97471, -6.86678],
+      [33.97491, -6.86674]
+    ];
+    const amphi = L.polygon(amphiCoords, { color: "#D1B3FF", fillColor: "#E6D9FF", fillOpacity: 0.6 }).addTo(map);
+    L.marker([33.97480, -6.86695]).addTo(map)
+      .bindPopup("<b>Grand Amphi Agro</b><br>Amphithéâtre principal.<br>");
+
+    L.polyline([
+      [33.9754785964006, -6.867310668986265],
+      [33.97494968582455, -6.866558312128982],
+      [33.976085656488614, -6.866362667661885]
+    ], { color: "#999999", dashArray: '5,10', weight: 3 }).addTo(map)
+      .bindPopup("Chemin vers Grand Amphi Agro");
+
+    const allBounds = L.featureGroup([clinique, iaa, poleDigital, topo, amphi]).getBounds();
+    map.fitBounds(allBounds);
+  </script>
+</body>
+</html>
